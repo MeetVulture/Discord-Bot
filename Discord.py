@@ -169,4 +169,4 @@ for filename in ('./cogs'):
             client.load_extension(f'cogs.{filename[:-3]}') 
 
 
-client.run('ODk1MzQyOTYwODMxNTI0ODY0.YV3LHA.NPcehQ4dV0Y9YUEaVpBvZDAof0k')
+client.run('give ur token here')
