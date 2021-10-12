@@ -1,79 +1,5 @@
 import discord
-import json
-import os
-from discord import message
-from discord.client import _ClientEventTask
 from discord.ext import commands
-
-def get_prefix(client, message):
-      with open('prefixes.json', 'r') as f:
-            prefixes = json.load(f)
-      
-           
-      return prefixes[str(message.guild.id)] 
-
-client = commands.Bot (command_prefix = get_prefix)
-
-
-@client.event
-async def on_ready():
-      print('Went online!')
-
-@client.event
-async def on_guild_join(guild):
-      with open('prefixes.json', 'r') as f:
-            prefixes = json.load(f)
-
-      prefixes[str(message.guild.id)] = '.'
-
-      with open('prefixes.json', 'w') as f:
-       json.dump(prefixes, f, indent=4)
-
-@client.event
-async def on_guild_remove(guild):
-      with open('prefixes.json', 'r') as f:
-            prefixes = json.load(f)
-
-      prefixes.pop(str(guild.id))
-
-      with open('prefixes.json', 'w') as f:
-            json.dump(prefixes, f, indent=4)
-
-@client.command()
-async def changeonprefix(ctx, prefix):
-      with open('prefixes.json', 'r') as f:
-            prefixes = json.load(f)
-
-      prefixes[str(ctx.guild.id)] = prefix
-
-      with open('prefixes.json', 'w') as f:
-            json.dump(prefixes, f, indent=4)  
-
-      await ctx.send(f'Prefix changed to: {prefix}')
-
-@client.event
-async def on_command_error(ctx, error):
- if isinstance (error, commands.CommandNotFound):     
-      await ctx.send('Invaid Command type .help to see command description')
-
-      
-@client.command()
-async def load(ctx, extension):
-      client.load_extension(f'cogs.{extension}')
-
-@client.command()
-async def unload(ctx, extension):
-      client.unload_extension(f'cogs.{extension}')
-
-@client.command()
-async def reload(ctx, extension):
-      client.unload_extension(f'cogs.{extension}')    
-      client.load_extension(f'cogs.{extension}')  
-
-for filename in ('./cogs'):
-      if filename.endswith('.py'):
-            client.load_extension(f'cogs.{filename[:-3]}') 
-
 
 client = commands.Bot (command_prefix = '.')
 
@@ -81,10 +7,6 @@ client = commands.Bot (command_prefix = '.')
 async def on_ready():
       print('Went online!')
 
-@client.event
-async def on_command_error(ctx, error):
- if isinstance (error, commands.CommandNotFound):     
-      await ctx.send('Invaid Command type .help to see command description')
 
 @client.command()
 async def clear(ctx, amount=6):
@@ -151,22 +73,6 @@ async def spam(ctx):
       await ctx.send(f' @here @everyone oifdsjdoifjoidsanfoisafoisafoinvafoisjdjdfpijofdsjosjfoisjfiuhfouhfoiusahfoiushiuehfiudhfewhfiuafiudsajfdsiujfidsjfoisjojsafdijdfijfijidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfijdifkjsafnsaiudhfnoisauhdABDWNINIVSNIDSJNNCISNICNKmkIKOjKKIO092I9I0938320949840924020923-21VSS')
       await ctx.send(f' @here @everyone oifdsjdoifjoidsanfoisafoisafoinvafoisjdjdfpijofdsjosjfoisjfiuhfouhfoiusahfoiushiuehfiudhfewhfiuafiudsajfdsiujfidsjfoisjojsafdijdfijfijidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfidjfijdifkjsafnsaiudhfnoisauhdABDWNINIVSNIDSJNNCISNICNKmkIKOjKKIO092I9I0938320949840924020923-21VSS')
       
-@client.command()
-async def load(ctx, extension):
-      client.load_extension(f'cogs.{extension}')
-
-@client.command()
-async def unload(ctx, extension):
-      client.unload_extension(f'cogs.{extension}')
-
-@client.command()
-async def reload(ctx, extension):
-      client.unload_extension(f'cogs.{extension}')    
-      client.load_extension(f'cogs.{extension}')  
-
-for filename in ('./cogs'):
-      if filename.endswith('.py'):
-            client.load_extension(f'cogs.{filename[:-3]}') 
 
 
 client.run('give ur token here')
